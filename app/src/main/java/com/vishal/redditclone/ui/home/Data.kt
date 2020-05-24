@@ -19,6 +19,30 @@ class Data {
     @SerializedName("title")
     var title: String? = null
 
+    @SerializedName("permalink")
+    var permalink: String? = null
+
+    @SerializedName("body")
+    var body: String? = null
+
+    @SerializedName("score")
+    var score: String? = null
+
+    @SerializedName("created")
+    var created: String? = null
+
+    @SerializedName("downs")
+    var downs: String? = null
+
+    @SerializedName("author")
+    var author: String? = null
+
+    @SerializedName("name")
+    var name: String? = null
+
+    @SerializedName("ups")
+    var ups: String? = null
+
     companion object {
         @JvmStatic
         @BindingAdapter("thumbnail")

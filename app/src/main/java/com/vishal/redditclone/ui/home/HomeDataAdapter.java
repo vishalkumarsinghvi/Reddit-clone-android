@@ -1,6 +1,7 @@
 package com.vishal.redditclone.ui.home;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -26,8 +27,15 @@ public class HomeDataAdapter extends RecyclerView.Adapter<HomeDataAdapter.PostVi
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder PostViewHolder, int i) {
-        Children currentStudent = postData.get(i);
-        PostViewHolder.postListItemBinding.setData(currentStudent.getData());
+        final Children currentPost = postData.get(i);
+        PostViewHolder.postListItemBinding.setData(currentPost.getData());
+        PostViewHolder.postListItemBinding.cvData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentPost.getData() != null && currentPost.getData().getPermalink() != null)
+                    ((HomeActivity) view.getContext()).click(currentPost.getData().getPermalink());
+            }
+        });
     }
 
     @Override

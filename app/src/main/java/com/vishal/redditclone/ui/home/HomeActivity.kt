@@ -1,5 +1,6 @@
 package com.vishal.redditclone.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vishal.redditclone.R
 import com.vishal.redditclone.databinding.ActivityHomeBinding
+import com.vishal.redditclone.ui.post.PostActivity
 
 
 class HomeActivity : AppCompatActivity() {
@@ -39,5 +41,9 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Data null", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    fun click(url: String) {
+        startActivity(Intent(this@HomeActivity, PostActivity::class.java).putExtra("link", url))
     }
 }
