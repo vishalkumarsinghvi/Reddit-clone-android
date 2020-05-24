@@ -39,6 +39,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="fitXY"
+                    bind:thumbnail="@{Data.thumbnail}"
                     bind:layout_constraintBottom_toBottomOf="parent"
                     bind:layout_constraintStart_toStartOf="parent"
                     bind:layout_constraintTop_toTopOf="parent" />

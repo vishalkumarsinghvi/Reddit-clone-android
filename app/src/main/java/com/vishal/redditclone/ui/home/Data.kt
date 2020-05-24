@@ -1,114 +1,36 @@
 package com.vishal.redditclone.ui.home
 
+import android.R
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.annotations.SerializedName
 
+
 class Data {
-    var secure_media: String? = null
-    var saved: String? = null
-    var hide_score: String? = null
-    var total_awards_received: String? = null
-    var subreddit_id: String? = null
-    var score: String? = null
-    var num_comments: String? = null
-    var mod_reason_title: String? = null
-    var whitelist_status: String? = null
-    var removed_by: String? = null
-    var spoiler: String? = null
-    var id: String? = null
-    var created_utc: String? = null
-    var banned_at_utc: String? = null
-    var discussion_type: String? = null
-    var edited: String? = null
-    var allow_live_comments: String? = null
-    var author_flair_background_color: String? = null
-    var approved_by: String? = null
-    var media_embed: String? = null
-    var domain: String? = null
-    var approved_at_utc: String? = null
-    var no_follow: String? = null
-    var ups: String? = null
-    var author_flair_type: String? = null
-    var permalink: String? = null
-    var content_categories: String? = null
-    var wls: String? = null
-    var author_flair_css_class: String? = null
-    var mod_reports: Array<String> = emptyArray()
-    var gilded: String? = null
-    var removal_reason: String? = null
-    var send_replies: String? = null
-    var archived: String? = null
-    var author_flair_text_color: String? = null
-    var can_mod_post: String? = null
-    var is_self: String? = null
-    var author_fullname: String? = null
-    var link_flair_css_class: String? = null
-    var selftext: String? = null
-    var upvote_ratio: String? = null
-    var selftext_html: String? = null
-    var user_reports: Array<String> = emptyArray()
-    var is_crosspostable: String? = null
-    var clicked: String? = null
-    var author_flair_template_id: String? = null
-    var url: String? = null
-    var parent_whitelist_status: String? = null
-    var stickied: String? = null
-    var quarantine: String? = null
-    var view_count: String? = null
-    var link_flair_richtext: Array<String> = emptyArray()
-    var link_flair_background_color: String? = null
-    var author_flair_richtext: Array<String> = emptyArray()
-    var over_18: String? = null
-	@SerializedName("subreddit")
+
+    @SerializedName("subreddit")
     var subreddit: String? = null
-    var suggested_sort: String? = null
-    var can_gild: String? = null
-    var is_robot_indexable: String? = null
-    var author_premium: String? = null
-    var post_hint: String? = null
-    var locked: String? = null
-    var likes: String? = null
-	@SerializedName("thumbnail")
+
+    @SerializedName("thumbnail")
     var thumbnail: String? = null
-    var downs: String? = null
-    var created: String? = null
-    var author: String? = null
-    var treatment_tags: Array<String> = emptyArray()
-    var link_flair_text_color: String? = null
-    var gildings: String? = null
-    var report_reasons: String? = null
-    var is_video: String? = null
-    var is_original_content: String? = null
-    var subreddit_name_prefixed: String? = null
-    var mod_reason_by: String? = null
-    var name: String? = null
-    var awarders: Array<String> = emptyArray()
-    var media_only: String? = null
-    var num_reports: String? = null
-    var pinned: String? = null
-    var hidden: String? = null
-    var author_patreon_flair: String? = null
-    var mod_note: String? = null
-    var media: String? = null
 
     @SerializedName("title")
     var title: String? = null
-    var author_flair_text: String? = null
-    var num_crossposts: String? = null
-    var thumbnail_width: String? = null
-    var secure_media_embed: String? = null
-    var link_flair_text: String? = null
-    var subreddit_type: String? = null
-    var is_meta: String? = null
-    var subreddit_subscribers: String? = null
-    var distinguished: String? = null
-    var removed_by_category: String? = null
-    var thumbnail_height: String? = null
-    var link_flair_type: String? = null
-    var all_awardings: Array<String> = emptyArray()
-    var visited: String? = null
-    var pwls: String? = null
-    var category: String? = null
-    var banned_by: String? = null
-    var contest_mode: String? = null
-    var is_reddit_media_domain: String? = null
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("thumbnail")
+        fun loadImage(imageView: ImageView, imageURL: String?) {
+            Glide.with(imageView.context)
+                .setDefaultRequestOptions(
+                    RequestOptions()
+                        .circleCrop()
+                )
+                .load(imageURL)
+                .placeholder(R.drawable.ic_menu_info_details)
+                .into(imageView)
+        }
+    }
 }
