@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewmodel = homeViewModel
         homeViewModel.initHomeViewModel()
-        val recyclerView: RecyclerView = binding.viewEmployees
+        val recyclerView: RecyclerView = binding.viewPost
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         homeDataAdapter = HomeDataAdapter()

@@ -1,10 +1,5 @@
 package com.vishal.redditclone.ui.home
 
-import android.R
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.gson.annotations.SerializedName
 
 
@@ -41,20 +36,17 @@ class Data {
     var name: String? = null
 
     @SerializedName("ups")
-    var ups: String? = null
+    var upVotes: String? = null
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter("thumbnail")
-        fun loadImage(imageView: ImageView, imageURL: String?) {
-            Glide.with(imageView.context)
-                .setDefaultRequestOptions(
-                    RequestOptions()
-                        .circleCrop()
-                )
-                .load(imageURL)
-                .placeholder(R.drawable.ic_menu_info_details)
-                .into(imageView)
-        }
-    }
+    @SerializedName("subreddit_name_prefixed")
+    val subredditNamePrefixed: String? = null
+
+    @SerializedName("over_18")
+    val isNsfw = false
+
+    @SerializedName("created_utc")
+    val createdAt: Long = 0
+
+    @SerializedName("num_comments")
+    val numComments = "0"
 }

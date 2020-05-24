@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,72 +9,172 @@
             type="com.vishal.redditclone.ui.home.Data" />
     </data>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true">
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:id="@+id/cvData"
+        android:padding="@dimen/activity_horizontal_margin">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvData"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:elevation="3dp"
-            card_view:cardCornerRadius="1dp">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_3dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_subreddit"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Data.subredditNamePrefixed}"
+                android:textSize="@dimen/text_size_12"
+                tools:text="NintendoSwitch" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_3dp"
+                android:text="@string/separator_text"
+                android:textSize="@dimen/text_size_12" />
+
+            <com.github.curioustechizen.ago.RelativeTimeTextView
+                android:id="@+id/tv_time"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_12"
+                app:relative_time_prefix="" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_3dp"
+                android:text="@string/separator_text"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/tv_user"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Data.author}"
+                android:textSize="@dimen/text_size_12"
+                tools:text="NintendoSwitch" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Data.title}"
+                    tools:text="This is a really but really big title that it may look short but in reality is very, but very big." />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivPic"
+                android:layout_width="@dimen/thumb_dimen"
+                android:layout_height="@dimen/thumb_dimen" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ivPic"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="fitXY"
-                    bind:layout_constraintBottom_toBottomOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toTopOf="parent"
-                    bind:thumbnail="@{Data.thumbnail}" />
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:background="@drawable/ic_arrow_drop_up_black_24dp" />
 
                 <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_upvotes_count"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivPic"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:padding="4dp"
-                    android:text="@{Data.title}"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toEndOf="@+id/ivPic"
-                    bind:layout_constraintTop_toTopOf="parent"
-                    tools:text="Morris" />
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:text="@{Data.upVotes}"
+                    tools:text="1203" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:background="@drawable/ic_chat_bubble_outline_black_24dp" />
 
                 <TextView
-                    android:id="@+id/tvSubtitle"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_comments_count"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvTitle"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:padding="4dp"
-                    android:text="@{Data.subreddit}"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toEndOf="@+id/ivPic"
-                    bind:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                    tools:text="morris@gmail.com" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginLeft="@dimen/dimen_5dp"
+                    android:text="@{Data.numComments}"
+                    tools:text="1203" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@color/light_gray" />
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/ic_favorite_border_black_24dp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </layout>
