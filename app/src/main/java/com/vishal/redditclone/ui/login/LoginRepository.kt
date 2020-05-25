@@ -13,7 +13,7 @@ class LoginRepository {
 	private val apiServices: ApiServices = RetrofitInstance.createService(ApiServices::class.java)
 	val loginData = MutableLiveData<LoginModel?>()
 	fun loginSuccess(username: String?, password: String?): MutableLiveData<LoginModel?> {
-		apiServices.login(username, username, password, "json").enqueue(object : Callback<LoginModel?> {
+		apiServices.login(username, username, password, "json")?.enqueue(object : Callback<LoginModel?> {
 			override fun onResponse(call: Call<LoginModel?>, response: Response<LoginModel?>) {
 				if (response.isSuccessful) {
 					loginData.value = (response.body())

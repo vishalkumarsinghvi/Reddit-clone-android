@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.vishal.redditclone.apiInterface.ApiServices
 import com.vishal.redditclone.network.RetrofitInstance
+import com.vishal.redditclone.ui.home.model.RedditFeed
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +14,7 @@ class HomeRepository {
 	private val apiServices: ApiServices = RetrofitInstance.createService(ApiServices::class.java)
 	val redditData = MutableLiveData<RedditFeed?>()
 	fun getRandomPost(): MutableLiveData<RedditFeed?> {
-		apiServices.randomPost.enqueue(object : Callback<RedditFeed?> {
+		apiServices.randomPost?.enqueue(object : Callback<RedditFeed?> {
 			override fun onResponse(call: Call<RedditFeed?>, response: Response<RedditFeed?>) {
 				if (response.isSuccessful) {
 					redditData.value = (response.body())

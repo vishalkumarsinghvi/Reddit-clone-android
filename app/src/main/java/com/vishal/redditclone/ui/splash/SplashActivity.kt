@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
 		val w: Window = window
 		w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 		VideoView.setVideoURI(Uri.parse(splash_video_url))
-		VideoView.setOnPreparedListener { mp -> mp.isLooping = true }
+		VideoView.setOnPreparedListener { mp -> mp.isLooping = true;mp.setVolume(0f, 0f) }
 		VideoView.start()
 		btn_login.setOnClickListener {
 			startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

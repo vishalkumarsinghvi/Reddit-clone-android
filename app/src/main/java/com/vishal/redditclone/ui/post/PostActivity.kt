@@ -1,47 +1,61 @@
 package com.vishal.redditclone.ui.post
 
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import androidx.recyclerview.widget.GridLayoutManager
 import com.vishal.redditclone.R
+import com.vishal.redditclone.apiInterface.ApiServices
 import com.vishal.redditclone.databinding.ActivityPostBinding
+import com.vishal.redditclone.network.RetrofitInstance
+import com.vishal.redditclone.ui.post.commentPostStore.PostStore
+import com.vishal.redditclone.ui.post.model.Comment
+import com.vishal.redditclone.utils.UtilsFunctions
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 
-class PostActivity : AppCompatActivity() {
+class PostActivity : AppCompatActivity(), PostContractor.View {
 	
 	lateinit var binding: ActivityPostBinding
-	lateinit var postViewModel: PostViewModel
-	lateinit var postDataAdapter: PostDataAdapter
+	private val groupAdapter = GroupAdapter<ViewHolder>()
+	private lateinit var groupLayoutManager: GridLayoutManager
+	lateinit var postStore: PostStore
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_post)
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_post)
-		postViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(PostViewModel::class.java)
-		binding.lifecycleOwner = this
-		binding.viewmodel = postViewModel
-		postViewModel.initPostViewModel(intent.extras?.get("link").toString())
-		val recyclerView: RecyclerView = binding.viewComments
-		recyclerView.layoutManager = LinearLayoutManager(this)
-		recyclerView.setHasFixedSize(true)
-		postDataAdapter = PostDataAdapter()
-		recyclerView.adapter = postDataAdapter
-		postViewModel.updateUi().observe(this, Observer {
-			if (it != null) {
-				binding.tvTitle.text = it[0]?.redditFeedData?.children?.get(0)?.data?.title
-				binding.tvSubtitle.text = it[0]?.redditFeedData?.children?.get(0)?.data?.subreddit
-				val url = it[0]?.redditFeedData?.children?.get(0)?.data?.thumbnail
-				Glide.with(this@PostActivity).setDefaultRequestOptions(RequestOptions().circleCrop()).load(url).placeholder(android.R.drawable.ic_menu_info_details).into(binding.ivPic)
-				postDataAdapter.setCommentList(it[1]?.redditFeedData?.children)
-			} else {
-				Toast.makeText(this, "Data null", Toast.LENGTH_SHORT).show()
-			}
-		})
+		postStore = PostStore(RetrofitInstance.createService(ApiServices::class.java))
+		setPresenter(PostPresenter(this, postStore))
+		groupLayoutManager = GridLayoutManager(this, groupAdapter.spanCount).apply {
+			spanSizeLookup = groupAdapter.spanSizeLookup
+		}
+		
+		binding.viewComments.apply {
+			layoutManager = groupLayoutManager
+			adapter = groupAdapter
+		}
+		
+		groupLayoutManager = GridLayoutManager(this, groupAdapter.spanCount).apply {
+			spanSizeLookup = groupAdapter.spanSizeLookup
+		}
+		
+		binding.viewComments.apply {
+			layoutManager = groupLayoutManager
+			adapter = groupAdapter
+		}
+		UtilsFunctions(this).showToast("Long Press to show more comments")
+		
+	}
+	
+	override fun showComment(comment: Comment) {
+		groupAdapter.add(ExpandableCommentGroup(comment))
+		binding.progressBar.visibility = View.GONE
+	}
+	
+	override fun setPresenter(presenter: PostContractor.Presenter) {
+		val permalink = intent.extras?.get("link").toString()
+		presenter.loadInfo(permalink)
 	}
 }

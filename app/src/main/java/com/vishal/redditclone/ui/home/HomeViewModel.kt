@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.vishal.redditclone.ui.home.model.RedditFeed
 
 
 class HomeViewModel : ViewModel() {
